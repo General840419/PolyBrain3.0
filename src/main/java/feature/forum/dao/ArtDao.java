@@ -32,6 +32,8 @@ public class ArtDao implements ArtDaoImpl {
             "SELECT ARTICLE_NO,MEM_NO,ARTICLE_TITLE,ARTICLE_CONTENT,ARTICLE_TIME,ARTICLE_STATE,ITEM_CLASS_NO,upFiles FROM article where ARTICLE_NO = ?";
     private static final String GET_ONE_NO =
             "SELECT ARTICLE_NO,MEM_NO,ARTICLE_TITLE,ARTICLE_CONTENT,ARTICLE_TIME,ARTICLE_STATE,ITEM_CLASS_NO,upFiles FROM article where ITEM_CLASS_NO = ?";
+    private static final String GET_ONE_MEM =
+            "SELECT ARTICLE_NO,MEM_NO,ARTICLE_TITLE,ARTICLE_CONTENT,ARTICLE_TIME,ARTICLE_STATE,ITEM_CLASS_NO,upFiles FROM article where MEM_NO = ?";
     private static final String DELETE =
             "DELETE FROM article where ARTICLE_NO = ?";
     private static final String UPDATE =
@@ -316,6 +318,60 @@ public class ArtDao implements ArtDaoImpl {
                 }
             }
         }
+        return list;
+    }
+    public List<ArtVo> findByMemNo(Integer memNo) {
+        List<ArtVo> list =new ArrayList<ArtVo>();
+        ArtVo artVo = null ;
+
+        Connection con =null;
+        PreparedStatement pstmt =null;
+        ResultSet rs =null;
+
+        try {
+            con =ds.getConnection();
+            pstmt =con.prepareStatement(GET_ONE_MEM);
+            pstmt.setInt(1,memNo );
+            rs =pstmt.executeQuery();
+
+            while (rs.next()) {
+                artVo = new ArtVo();
+                artVo.setArtNo(rs.getInt("ARTICLE_NO"));
+                artVo.setMemNo(rs.getInt("MEM_NO"));
+                artVo.setArtTitle(rs.getString("ARTICLE_TITLE"));
+                artVo.setArtCon(rs.getString("ARTICLE_CONTENT"));
+                artVo.setArtTime(rs.getTimestamp("ARTICLE_TIME"));
+                artVo.setArtState(rs.getByte("ARTICLE_STATE"));
+                artVo.setItemNo(rs.getInt("ITEM_CLASS_NO"));
+                list.add(artVo);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("A database error occurred. "
+                    + e.getMessage());
+        }finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+
         return list;
     }
 }

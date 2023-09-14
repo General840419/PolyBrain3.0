@@ -6,7 +6,7 @@
 
 <%
     ArtService artSvc = new ArtService();
-    List<ArtVo> list = artSvc.findByItemNo(Integer.valueOf(request.getParameter("itemNo")));
+    List<ArtVo> list = artSvc.findByMemNo(Integer.valueOf(request.getParameter("memNo")));
     if(request.getAttribute("ArtListData")==null) pageContext.setAttribute("ArtListData",list);
 %>
 <!DOCTYPE html>
@@ -129,14 +129,19 @@
     <a class="btn btn-primary" href="../addnewpage.jsp">新增貼文</a>
 
 <table id="example" class="display" style="width: 100%">
-  <thead >
+<thead >
 	<tr style="background-color:#CCCCFF">
 	    <th>計數</th>
 		<th>文章編號</th>
-		<th>會員編號</th>
 		<th>圖片</th>
+
 		<th>貼文主題</th>
+		<th>貼文內容</th>
 		<th>發布時間</th>
+		<th>貼文狀態</th>
+		<th>遊戲類別</th>
+		<th>修改</th>
+		<th>刪除</th>
 	</tr>
   </thead>
 
@@ -145,13 +150,61 @@
 		<tr>
             <td>${s.count}</td>
 			<td>${ArtVo.artNo}</td>
-			<td>${ArtVo.memNo}</td>
 			<td><img src="<%=request.getContextPath()%>/Art/DBGifReader?artNo=${ArtVo.artNo}" width="100px"></td>
-			<td><a href="../innerpage/detail.jsp?artNo=${ArtVo.artNo}">${ArtVo.artTitle}</a></td>
+
+			<td>${ArtVo.artTitle}</td>
+			<td>${ArtVo.artCon}</td>
 			<td>
                 <fmt:formatDate value="${ArtVo.artTime}" pattern="yyyy-MM-dd HH:mm:ss" />
             </td>
+			<td>
+                        <c:choose>
+                            <c:when test="${ArtVo.artState == 0}">
+                                未上架
+                            </c:when>
+                            <c:when test="${ArtVo.artState == 1}">
+                                已上架
+                            </c:when>
+                            <c:otherwise>
+                                未知狀態
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+			<td>
+                    <c:choose>
+                            <c:when test="${ArtVo.itemNo == 1}">
+                                策略型
+                            </c:when>
+                            <c:when test="${ArtVo.itemNo == 2}">
+                                派對型
+                            </c:when>
+                            <c:when test="${ArtVo.itemNo == 3}">
+                                親子型
+                            </c:when>
+                            <c:when test="${ArtVo.itemNo == 4}">
+                                 親子型
+                             </c:when>
+                            <c:when test="${ArtVo.itemNo == 4}">
+                                 陣營型
+                             </c:when>
+                             <c:otherwise>
+                                其他型
+                            </c:otherwise>
+                        </c:choose></td>
 
+
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Art/Art.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="artNo" value="${ArtVo.artNo}">
+			     <input type="hidden" name="action"	value="getOne_For_Update_mem"></FORM>
+			</td>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Art/Art.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除">
+			     <input type="hidden" name="artNo" value="${ArtVo.artNo}">
+			     <input type="hidden" name="action" value="delete"></FORM>
+			</td>
 		</tr>
 	</c:forEach>
   </tbody>

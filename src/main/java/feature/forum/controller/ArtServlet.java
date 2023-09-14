@@ -54,6 +54,31 @@ public class ArtServlet extends HttpServlet {
            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
+        if("getOne_For_Update_mem".equals(action)){
+            Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+            req.setAttribute("errorMsgs",errorMsgs);
+
+            Integer artNo = Integer.valueOf(req.getParameter("artNo"));
+
+            ArtService ArtSvc =new ArtService();
+            ArtVo artVo =ArtSvc.getOneArt(artNo);
+
+
+
+            String param = "?artNo=" + artVo.getArtNo()+
+                    "&memNo="+artVo.getMemNo()+
+                    "&artTitle="+artVo.getArtTitle()+
+                    "&artCon="+artVo.getArtCon()+
+                    "&artTime="+artVo.getArtTime()+
+                    "&artState="+artVo.getArtState()+
+                    "&itemNo="+artVo.getItemNo()+
+                    "&upFiles="+artVo.getUpFiles();
+
+//           req.setAttribute("artVo", artVo);
+            String url ="/view/forum/mainpage/Update_Art_input_mem.jsp"+param;
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req, res);
+        }
         if("update".equals(action)){
             Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
             req.setAttribute("errorMsgs",errorMsgs);
@@ -131,6 +156,88 @@ public class ArtServlet extends HttpServlet {
             req.setAttribute("success","- (修改成功)");
             req.setAttribute("ArtVo",artVo);
             String url ="/view/forum/mainpage/Listallarti.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req,res);
+
+
+        }
+        if("update_mem".equals(action)){
+            Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+            req.setAttribute("errorMsgs",errorMsgs);
+
+            System.out.println("----------------------------");
+
+            Integer artNo =null;
+            try {
+                artNo = Integer.valueOf(req.getParameter("artNo").trim());
+            }catch (NumberFormatException e){
+                errorMsgs.put("artNo","貼文編號請勿空白");
+            }
+
+            Integer memNo =null;
+            try {
+                memNo =Integer.valueOf(req.getParameter("memNo").trim());
+            }catch (NumberFormatException e){
+                errorMsgs.put("memNo","請輸入會員編號");
+            }
+
+
+            String artTitle =req.getParameter("artTitle");
+            if(artTitle == null || artTitle.trim().length() == 0){
+                errorMsgs.put(artTitle,"貼文主題請勿空白");
+            }
+
+            String artCon =req.getParameter("artCon");
+            if(artCon == null || artCon.trim().length() == 0){
+                errorMsgs.put(artCon,"貼文內容請勿空白");
+            }
+
+            Timestamp artTime = new Timestamp(System.currentTimeMillis());
+
+            Byte artState =null;
+            try {
+                artState =Byte.valueOf(req.getParameter("artState").trim());
+            }catch (NumberFormatException e){
+                errorMsgs.put("artState","貼文狀態請勿空白");
+            }
+            Integer itemNo =null;
+            try {
+                itemNo =Integer.valueOf(req.getParameter("itemNo").trim());
+            }catch (NumberFormatException e){
+                errorMsgs.put("itemNo","    遊戲類別請勿空白");
+            }
+
+            InputStream in = req.getPart("upFiles").getInputStream(); //從javax.servlet.http.Part物件取得上傳檔案的InputStream
+            byte[] upFiles = null;
+            if(in.available()!=0){
+                upFiles = new byte[in.available()];
+                in.read(upFiles);
+                in.close();
+            }  else {
+                ArtService artSvc = new ArtService();
+                upFiles = artSvc.getOneArt(artNo).getUpFiles();
+            }
+
+
+
+
+
+
+            if (!errorMsgs.isEmpty()){
+                errorMsgs.put("Exception","修改資料失敗:-------");
+                RequestDispatcher failureView =req
+                        .getRequestDispatcher("/view/forum/mainpage/Update_Art_input.jsp");
+                failureView.forward(req,res);
+                return;
+            }
+
+
+            ArtService artSvc =new ArtService();
+            ArtVo artVo =artSvc.updateArt(artNo,memNo,artTitle,artCon,artTime,artState,itemNo,upFiles);
+
+            req.setAttribute("success","- (修改成功)");
+            req.setAttribute("ArtVo",artVo);
+            String url ="/view/forum/list/Memartlist.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req,res);
 

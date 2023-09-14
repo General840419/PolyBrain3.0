@@ -109,7 +109,7 @@
 
 			<div>
 				<div></div>
-				<input  type="hidden" name="action" value="update">
+				<input  type="hidden" name="action" value="update_mem">
 				<button type="submit" id="submit"> 送出修改 </button>
 				<div></div>
 			</div>

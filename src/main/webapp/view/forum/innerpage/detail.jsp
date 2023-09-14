@@ -156,7 +156,7 @@
                             <div class="col-sm-6">
                                 <ul class="list-unstyled mb-0">
                                     <li><a href="#!">合作類</a></li>
-                                    <li><a href="#!">策略類</a></li>
+
                                     <li><a href="#!">陣營類</a></li>
                                 </ul>
                             </div>

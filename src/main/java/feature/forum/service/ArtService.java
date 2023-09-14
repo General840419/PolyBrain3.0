@@ -66,6 +66,10 @@ public class ArtService {
         return dao.findByItemNo(itemNo);
     }
 
+    public List<ArtVo> findByMemNo(Integer memNo) {
+        return dao.findByMemNo(memNo);
+    }
+
 
 
 

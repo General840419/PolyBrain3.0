@@ -13,4 +13,5 @@ public interface ArtDaoImpl {
     public List<ArtVo> getAll();
     public List<ArtVo> findByItemNo(Integer itemNo);
 
+    public List<ArtVo> findByMemNo(Integer memNo);
 }
