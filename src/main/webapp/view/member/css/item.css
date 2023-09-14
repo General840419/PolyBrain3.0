@@ -6808,7 +6808,6 @@ textarea.form-control-lg {
   z-index: 1030;
 }
 
-
 .fixed-bottom {
   position: fixed;
   right: 0;
@@ -10878,7 +10877,7 @@ body {
   min-width: 0;
   flex-grow: 1;
   min-height: calc(100vh - 56px);
-  margin-left: -105px;
+  margin-left: -225px;
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -10931,8 +10930,7 @@ body {
   overflow-y: auto;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-  /*padding-left: 105px;*/
-  width: 225px
+  padding-left: 225px;
   top: 56px;
 }
 
