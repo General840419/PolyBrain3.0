@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+       Integer memNo = (Integer) session.getAttribute("memNo");
 
+              if (memNo == null) {
+                  // memNo不存在于session中，执行重定向
+                        response.sendRedirect(request.getContextPath() + "/view/member/login.html");
+                        return;
+              }
+%>
 
 
 
@@ -16,6 +24,9 @@
 
 
 <style type="text/css">
+body {
+    background-color: #efe9e7;
+}
 
 	button {
 		padding: 5px;

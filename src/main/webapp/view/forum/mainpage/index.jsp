@@ -11,32 +11,106 @@
     <title>討論區主頁</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-    <style>
-        nav.navbar{
-            position: sticky;
-            top:0;
-            z-index: 1000;
-        }
-    </style>
+
+ <script src="https://kit.fontawesome.com/cb31023646.js" crossorigin="anonymous"></script>
+     <style>
+
+         .flex-container {
+        display: flex;       /* 啟用flexbox佈局 */
+        align-items: flex-start;  /* 內容從上到下對齊 */
+    }
+         article {       /* 隱私權設定 */
+        font-size: 15px; /* 或其他合適的大小 */
+        padding-left: 40px; /* 或其他合適的邊距 */
+        width: 80%; /* 或其他合適的寬度 */
+        margin: 0 auto; /* 這會使文章內容在頁面中居中 */
+        margin-top: 40px;  /* 依您的需求調整這個值 */
+    }
+            .backto {
+        position: fixed; /* 可以使按鈕在滾動時保持固定位置 */
+        bottom: 10%; /* 可以根據需要調整到頁面的具體位置 */
+        left: 50%; /* 將按鈕移到視窗的一半 */
+        transform: translateX(-50%); /* 水平置中 */
+    }
+
+    #gotop img {
+        display: block;
+        margin: 0 auto; /* 圖片水平置中 */
+    }
+     </style>
 </head>
 <body>
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#!">PolyBrain</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#">首頁</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">商品專區</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">競標專區</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">會員中心</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+               <div class="container px-5">
+                   <a class="navbar-brand" href="index.html">
+                    <img src="${pageContext.request.contextPath}/view/logo/PolyBrain_Logo.png" style="width: 110px; height: auto; margin-bottom: 5px;"></a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                       data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                       aria-expanded="false" aria-label="Toggle navigation"><span
+                           class="navbar-toggler-icon"></span></button>
+                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                   <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav-list"> 添加 nav-list 類別 -->
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" id="buyitem" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">商城</a>
+                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                   <li><a class="dropdown-item" href="blog-home.html">商品資訊</a></li>
+                                   <li><a class="dropdown-item" href="blog-post.html">商城訂單查詢</a></li>
+                               </ul>
+                           </li>
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" id="buybid" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">競標</a>
+                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                   <li><a class="dropdown-item" href="blog-home.html">熱門競標</a></li>
+                                   <li><a class="dropdown-item" href="blog-post.html">競標訂單查詢</a></li>
+                               </ul>
+                           </li>
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" id="mybooking" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">預約場地</a>
+                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                   <li><a class="dropdown-item" href="blog-home.html">現在預約</a></li>
+                                   <li><a class="dropdown-item" href="blog-post.html">預約場地查詢</a></li>
+                               </ul>
+                           </li>
+                           <li class="nav-item">
+                               <a class="nav-link" id="discuss" href="#" role="button">討論區</a>
+                           </li>
+                           <li class="nav-item ">
+                               <a class="nav-link" id="memberdistrict" href="#" role="button">會員中心</a>
+                           </li>
+                           <li class="nav-item"><a class="nav-link" href="faq.html">常見問題</a></li>
+
+
+                           <li>
+                               <form class="d-flex">
+                                   <button class="btn btn-outline-dark" type="submit">
+                                       <i class="bi-cart-fill me-1"></i>
+                                       購物車
+                                       <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                                   </button>
+                               </form>
+                           </li>
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                  data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                               <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-end"
+                                   aria-labelledby="navbarDropdown">
+                               </ul>
+                           </li>
+
+                       </ul>
+                   </div>
+               </div>
+           </nav>
+           <div id="layoutSidenav">  <!--勿刪到-->
     <!-- Page header with logo and tagline-->
     <header class="py-5 bg-light border-bottom mb-4">
         <div class="container">
@@ -152,12 +226,85 @@
             </div>
         </div>
     <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-    </footer>
+  <footer class="bg-dark py-4 mt-auto">
+      <div class="container px-5">
+          <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+              <div class="col-auto">
+                  <div class="small m-0 text-white">Copyright © 2023 PolyBrain. All rights reserved. </div>
+              </div>
+              <div class="col-auto">
+
+
+
+                  <a class="link-light small" href="http://localhost:8080/PolyBrain/view/head/Privacy.html">隱私權協定</a>
+                  <span class="text-white mx-1">&middot;</span>
+                  <a class="link-light small" href="http://localhost:8080/PolyBrain/view/head/Forus.html">關於我們</a>
+                  <span class="text-white mx-1">&middot;</span>
+                  <a href="mailto:ps66391@gmail.com?subject=聯絡我們的請求&body=請在此寫下您的問題。"
+                     title="用 Email 轉寄" onclick="return confirm('您確定要前往email寄信?');">
+                      <img src="${pageContext.request.contextPath}/view/head/images/信封.jpg" >
+                  </a>
+
+
+
+
+              </div>
+          </div>
+      </div>
+  </footer>
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"
+         integrity="sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g=="
+         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Core theme JS-->
+ <script src="js/scripts.js"></script>
+
+    <script>
+        function scrollToTop() {
+        window.scrollTo({top: 0, behavior: 'smooth'}); // 使用平滑的滾動效果
+        }
+
+               $(document).ready(function(){
+                validateMemStatus();
+            });
+        async function validateMemStatus() {
+        const response = await fetch('/PolyBrain/general/validateMemStatus', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json; charset:utf-8' },
+        })
+        .then(resp => resp.json())
+        .then(data => {
+        console.log(data);
+        const { memNo, memName, loginStatus } = data;
+        $('ul#dropdown-menu').append(`
+        <li><a class="dropdown-item" href="http://localhost:8080/PolyBrain/view/member/Member_Information.jsp">會員專區</a></li>
+        <li><a class="dropdown-item" href="#!">購物車</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        `);
+        if (loginStatus) {
+        $('span#memName').text(memName);
+        $('ul#dropdown-menu').append('<li><a id="logOut" class="dropdown-item" href="http://localhost:8080/PolyBrain/view/member/logout.jsp">登出</a></li>');
+        let memDetail = [memNo, memName];
+        return memDetail;
+        } else {
+        $('ul#dropdown-menu').append('<li><a id="logOut" class="dropdown-item" href="http://localhost:8080/PolyBrain/view/member/login.html">登入</a></li>');
+        }
+        });
+        return response;
+        }
+
+              let bidEventList = document.querySelectorAll('.bidEventList');
+            bidEventList.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const biddingEvent = link.getAttribute('data-event-id');
+                   const bidEventURL = 'http://localhost:8080/PolyBrain/view/bid/BidOnItemPage2.jsp';
+                    const url = `${bidEventURL}?bidEventId=${biddingEvent}`;
+                    window.location.href = url;
+                });
+            });
+    </script>
 </body>
 </html>

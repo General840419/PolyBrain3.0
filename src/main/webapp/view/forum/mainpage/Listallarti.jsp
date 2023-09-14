@@ -3,6 +3,15 @@
 <%@page import="java.util.*"%>
 <%@page import="feature.forum.service.ArtService"%>
 <%@page import="feature.forum.vo.ArtVo"%>
+<%
+       Integer memNo = (Integer) session.getAttribute("memNo");
+
+              if (memNo == null) {
+                  // memNo不存在于session中，执行重定向
+                        response.sendRedirect(request.getContextPath() + "/view/member/login.html");
+                        return;
+              }
+%>
 
 <%
     ArtService artSvc = new ArtService();
@@ -21,6 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+
     <title>後台管理-文章</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
@@ -43,7 +53,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
                     aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                <button class="btn btn-primary " id="btnNavbarSearch" type="button"><i
                         class="fas fa-search"></i></button>
             </div>
         </form>
@@ -160,7 +170,7 @@
 
 <table id="example" class="display" style="width: 100%">
   <thead >
-	<tr style="background-color:#CCCCFF">
+	<tr style="background-color:#efe9e7">
 	    <th>計數</th>
 		<th>文章編號</th>
 		<th>會員編號</th>

@@ -11,6 +11,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -92,12 +93,9 @@ public class ArtServlet extends HttpServlet {
                 errorMsgs.put("artNo","貼文編號請勿空白");
             }
 
-            Integer memNo =null;
-            try {
-                memNo =Integer.valueOf(req.getParameter("memNo").trim());
-            }catch (NumberFormatException e){
-                errorMsgs.put("memNo","請輸入會員編號");
-            }
+            HttpSession session = req.getSession();
+            Integer memNo = (Integer) session.getAttribute("memNo");
+            System.out.println(memNo);
 
 
             String artTitle =req.getParameter("artTitle");
@@ -174,12 +172,10 @@ public class ArtServlet extends HttpServlet {
                 errorMsgs.put("artNo","貼文編號請勿空白");
             }
 
-            Integer memNo =null;
-            try {
-                memNo =Integer.valueOf(req.getParameter("memNo").trim());
-            }catch (NumberFormatException e){
-                errorMsgs.put("memNo","請輸入會員編號");
-            }
+
+            HttpSession session = req.getSession();
+            Integer memNo = (Integer) session.getAttribute("memNo");
+            System.out.println(memNo);
 
 
             String artTitle =req.getParameter("artTitle");
@@ -248,8 +244,11 @@ public class ArtServlet extends HttpServlet {
 
             Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
             req.setAttribute("errorMsgs",errorMsgs);
+            HttpSession session = req.getSession();
+            Integer memNo = (Integer) session.getAttribute("memNo");
+            System.out.println(memNo);
 
-            Integer memNo =Integer.valueOf(req.getParameter("memNo"));
+//            Integer memNo =Integer.valueOf(req.getParameter("memNo"));
 
             Integer itemNo =Integer.valueOf(req.getParameter("itemNo"));
 
@@ -282,7 +281,7 @@ public class ArtServlet extends HttpServlet {
 
             req.setAttribute("success","-(新增成功)");
 
-            String url ="/view/forum/mainpage/Listallarti.jsp";
+            String url ="/view/forum/list/Memartlist.jsp?memNo="+memNo;
             RequestDispatcher successView =req.getRequestDispatcher(url);
             successView.forward(req,res);
 
@@ -299,6 +298,23 @@ public class ArtServlet extends HttpServlet {
 
             req.setAttribute("success","-(刪除成功)");
             String url = "/view/forum/mainpage/Listallarti.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req,res);
+        }
+        if("delete_mem".equals(action)){
+            Map<String,String> errorMsgs =new LinkedHashMap<String,String>();
+            req.setAttribute("errorMsgs",errorMsgs);
+            HttpSession session = req.getSession();
+            Integer memNo = (Integer) session.getAttribute("memNo");
+            System.out.println(memNo);
+
+            Integer artNo =Integer.valueOf(req.getParameter("artNo"));
+
+            ArtService artSvc =new ArtService();
+            artSvc.deleteArt(artNo);
+
+            req.setAttribute("success","-(刪除成功)");
+            String url = "/view/forum/list/Memartlist.jsp?memNo="+memNo;
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req,res);
         }

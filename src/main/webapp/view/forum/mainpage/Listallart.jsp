@@ -19,7 +19,9 @@
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
-<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="/PolyBrain/view/common/login.js"/>
+          <!-- ●●js  for jquery datatables 用 -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
 
 <!-- ●● jquery datatables 設定 -->

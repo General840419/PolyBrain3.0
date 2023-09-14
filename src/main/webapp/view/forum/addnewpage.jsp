@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+       Integer memNo = (Integer) session.getAttribute("memNo");
+       if (session != null) {
+                  memNo = (Integer) session.getAttribute("memNo");
+              }
+
+              if (memNo == null) {
+                  // memNo不存在于session中，执行重定向
+                        response.sendRedirect(request.getContextPath() + "/view/member/login.html");
+              }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,7 +151,7 @@
     </div>
 
 
-<input  type="hidden" name="memNo" value="2">
+
 
 
                     <button  id="btn-submit" type="button"> 送出 </button>

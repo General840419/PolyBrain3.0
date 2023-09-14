@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -32,7 +33,9 @@ public class RpyServlet extends HttpServlet {
             Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
             req.setAttribute("errorMsgs", errorMsgs);
 
-            Integer memNo = Integer.valueOf(req.getParameter("memNo"));
+            HttpSession session = req.getSession();
+            Integer memNo = (Integer) session.getAttribute("memNo");
+            System.out.println(memNo);
 
             Integer artNo = Integer.valueOf(req.getParameter("artNo"));
 
@@ -45,7 +48,7 @@ public class RpyServlet extends HttpServlet {
 
             if (!errorMsgs.isEmpty()) {
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/view/forum/innerpage/detail.jsp?artNo=" + artNoParam);
+                        .getRequestDispatcher("/view/forum/innerpage/detail.jsp?artNo=" + artNo);
                 failureView.forward(req, res);
                 return;
             }
@@ -62,7 +65,7 @@ public class RpyServlet extends HttpServlet {
 
             req.setAttribute("success", "-(新增成功)");
 
-            String url = "/view/forum/innerpage/detail.jsp?artNo=" + artNoParam;
+            String url = "/view/forum/innerpage/detail.jsp?artNo=" + artNo;
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
 
